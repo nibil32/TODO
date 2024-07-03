@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+
+</head>
+<body>
+    <div class="container">
+    <h1>welcome {{request.user}}</h1>
+    <h4>Complete your Goals</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-primary btn-sm ps-5 pe-5 m-3">Add</button>
+    </form>
+        <a href="{% url 'logout' %}"><button type="button" class="btn btn-danger">logout</button></a>
+    </div>
+    <div class="container">
+    
+    <table class="table">
+        <tr class="table table-dark">
+            <th>Task</th>
+            <th>Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+        <td>{{i.name}}</td>
+        {% if i.complete == False %}
+        
+        <td>{{i.complete}}</td>
+        {% else %}
+            <td><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+                <g transform="translate(0 -1028.4)">
+                 <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1029.4)" fill="#27ae60"></path>
+                 <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1028.4)" fill="#2ecc71"></path>
+                 <path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"></path>
+                 <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"></path>
+                </g>
+               </svg></td>
+        {% endif %}       
+   
+    <td><a href="{% url 'edit' i.id %}"><button type="button" class="btn btn-outline-success">Completed</button></a></td>
+    <td><a href="{% url 'delete' i.id %}"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
+            
+
+    </tr>
+    {%endfor%}
+</table>
+    
+    
+</div>   
+{% endblock %} 
